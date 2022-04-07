@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Image, View, Dimensions } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { FAB, Portal, Provider } from "react-native-paper";
@@ -16,7 +16,7 @@ interface User {
 }
 
 export default function App() {
-  const [zoom, setZoom] = useState(0.005);
+  const [zoom, setZoom] = useState(0.007);
   const CESUPA = [
     {
       title: "Cesupa ARGO",
@@ -70,7 +70,7 @@ export default function App() {
     longitudeDelta: zoom,
   });
   const [user, SetUser] = useState<User>();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const getLocal = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -112,29 +112,28 @@ export default function App() {
           description={user?.description}
           pinColor="#ff0000"
         />
-        {CESUPA &&
-          CESUPA.map((cesupa) => (
-            <Marker
-              key={cesupa.title}
-              coordinate={cesupa.coord}
-              title={cesupa.title}
-              description={cesupa.description}
-              pinColor="#053F66"
-            >
-              <Image
-                style={{ width: 40, height: 40 }}
-                source={{
-                  uri: cesupa.img,
-                }}
-              />
-            </Marker>
-          ))}
+        {CESUPA.map((cesupa) => (
+          <Marker
+            key={cesupa.title}
+            coordinate={cesupa.coord}
+            title={cesupa.title}
+            description={cesupa.description}
+            pinColor="#053F66"
+          >
+            <Image
+              style={{ width: 100, height: 100 }}
+              source={{
+                uri: cesupa.img,
+              }}
+            />
+          </Marker>
+        ))}
       </MapView>
       <Portal>
         <FAB.Group
           visible={true}
           open={open}
-          icon={open ? "calendar-today" : "plus"}
+          icon="circle"
           actions={[
             {
               icon: "circle",
@@ -177,7 +176,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: "absolute",
-    margin: 16,
+    margin: 25,
     right: 0,
     bottom: 0,
   },
