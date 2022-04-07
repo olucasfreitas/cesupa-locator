@@ -16,7 +16,7 @@ interface User {
 }
 
 export default function App() {
-  const [zoom, setZoom] = useState(0.01);
+  const [zoom, setZoom] = useState(0.005);
   const CESUPA = [
     {
       title: "Cesupa ARGO",
